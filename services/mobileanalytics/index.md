@@ -143,10 +143,10 @@ To quickly get the {{site.data.keyword.mobileanalytics_short}} service up and ru
 	
 	```
 	var appName = "your_app_name_here";
-    	var apiKey = "your_api_key_here";
-    
-    	BMSAnalytics.Client.initialize(BMSAnalytics.Client.REGION_US_SOUTH);
-    	BMSAnalytics.initialize(appName,apiKey,hasUserContext,BMSAnalytics.DeviceEvents.ALL,instanceId);
+	var apiKey = "your_api_key_here";
+	
+	BMSAnalytics.Client.initialize(BMSAnalytics.Client.REGION_US_SOUTH);
+	BMSAnalytics.initialize(appName,apiKey,hasUserContext,BMSAnalytics.DeviceEvents.ALL,instanceId);
 	```
 	{: codeblock}
 
@@ -214,7 +214,7 @@ To quickly get the {{site.data.keyword.mobileanalytics_short}} service up and ru
 * [Android SDK ![External link icon](../../icons/launch-glyph.svg "External link icon")](https://github.com/ibm-bluemix-mobile-services/bms-clientsdk-android-analytics){: new_window}  
 * [iOS SDK ![External link icon](../../icons/launch-glyph.svg "External link icon")](https://github.com/ibm-bluemix-mobile-services/bms-clientsdk-swift-analytics){: new_window}
 * [Cordova Plugin Core SDK ![External link icon](../../icons/launch-glyph.svg "External link icon")](https://www.npmjs.com/package/bms-core){: new_window}
-
+* [Web SDK ![External link icon](../../icons/launch-glyph.svg "External link icon")](https://github.com/ibm-bluemix-mobile-services/bms-clientsdk-web-analytics/){: new_window}
 ## API Reference
 {: #api notoc}
 * [REST API ![External link icon](../../icons/launch-glyph.svg "External link icon")](https://mobile-analytics-dashboard.{DomainName}/analytics-service/){:new_window}
