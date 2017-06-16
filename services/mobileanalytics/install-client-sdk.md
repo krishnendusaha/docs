@@ -14,7 +14,7 @@ lastupdated: "2017-01-13"
 {: #mobileanalytics_sdk}
 
 The {{site.data.keyword.mobileanalytics_short}}
-Client SDKs are currently available for Android, iOS, WatchOS, and Cordova.
+Client SDKs are currently available for Android, iOS, WatchOS, Cordova and Web.
 {: shortdesc}
 
 ## Installing the Android Client SDK
@@ -145,6 +145,17 @@ The {{site.data.keyword.mobileanalytics_full}} Cordova plugin enables you to ins
 
 8. You have now installed the Cordova plugin and configured your environments. Next, [import and initialize](sdk.html#initalize-ma-sdk) the Analytics Client SDK.
 
+
+## Installing the Web plugin
+{: #web-sdk-cordova}
+
+The {{site.data.keyword.mobileanalytics_full}} SDK enables you to instrument your web application.
+
+1. Make sure that you have a web server and a browser setup (eg. Chrome, Firefox) .
+2. Create a new web app or use a existing one and put this [WebSDK](https://github.com/ibm-bluemix-mobile-services/bms-clientsdk-web-analytics/) within you project to be accessed by the app code . 
+
+
+
 # Related Links
 {: #rellinks notoc}
 
@@ -153,7 +164,7 @@ The {{site.data.keyword.mobileanalytics_full}} Cordova plugin enables you to ins
 * [Android SDK ![External link icon](../../icons/launch-glyph.svg "External link icon")](https://github.com/ibm-bluemix-mobile-services/bms-clientsdk-android-analytics){: new_window}  
 * [iOS SDK ![External link icon](../../icons/launch-glyph.svg "External link icon")](https://github.com/ibm-bluemix-mobile-services/bms-clientsdk-swift-analytics){: new_window}
 * [Cordova Plugin Core SDK ![External link icon](../../icons/launch-glyph.svg "External link icon")](https://www.npmjs.com/package/bms-core){: new_window}
-
+* [Web SDK![External link icon](../../icons/launch-glyph.svg "External link icon")](https://github.com/ibm-bluemix-mobile-services/bms-clientsdk-web-analytics/){: new_window}
 ## API Reference
 {: #api notoc}
 * [REST API ![External link icon](../../icons/launch-glyph.svg "External link icon")](https://mobile-analytics-dashboard.{DomainName}/analytics-service/){:new_window}
