@@ -63,6 +63,31 @@ To quickly get the {{site.data.keyword.mobileanalytics_short}} service up and ru
 	```Javascript
 	cordova plugin add bms-core
 	```
+    {: codeblock}
+   
+	## Web
+	{: #web-import notoc}
+
+	Add the web plugin by adding this script in the index.html file of web app.
+
+	```Html
+	<script src="bms-clientsdk-web-analytics/bmsanalytics.js"></script>
+	```
+ 	
+ 	or using module loader requirejs 
+
+ 	```Javascript
+ 	require.config({
+    'paths': {
+        'bmsanalytics': 'bms-clientsdk-web-analytics/bmsanalytics'
+    	}
+	});
+
+	require(['bmsanalytics'], function(BMSAnalytics) {
+	    BMSAnalytics.send();
+	}
+	```
+	*Note:* Here name used to reference api is the argument name (`BMSAnalytics`) used .   
 	{: codeblock}  
 
 4. Initialize the {{site.data.keyword.mobileanalytics_short}} Client SDK in your application code to record usage analytics and application sessions, using your [API Key](/docs/services/mobileanalytics/sdk.html#analytics-clientkey) value.	
@@ -110,9 +135,25 @@ To quickly get the {{site.data.keyword.mobileanalytics_short}} service up and ru
 	BMSAnalytics.initialize(appName, apiKey, false, [BMSAnalytics.ALL])
 	```
 	{: codeblock}
-  
-	The **bluemixRegion** parameter specifies which {{site.data.keyword.Bluemix_notm}} deployment you are using, for example, `BMSClient.REGION_US_SOUTH` and `BMSClient.REGION_UK`.
-  
+    
+	## Web
+	{: #web-initialize notoc}
+	
+	Initialize the Client SDK inside your application code to record usage analytics and application sessions, using your [API Key](/docs/services/mobileanalytics/sdk.html#analytics-clientkey) value.
+	
+	```
+	var appName = "your_app_name_here";
+    	var apiKey = "your_api_key_here";
+    
+    	BMSAnalytics.Client.initialize(BMSAnalytics.Client.REGION_US_SOUTH);
+    	BMSAnalytics.initialize(appName,apiKey,hasUserContext,BMSAnalytics.DeviceEvents.ALL,instanceId);
+	```
+	{: codeblock}
+
+	The **bluemixRegion** parameter specifies which {{site.data.keyword.Bluemix_notm}} deployment you are using, for example, `BMSAnalytics.Client.REGION_US_SOUTH` and `BMSAnalytics.Client.REGION_UK`.
+  	Set the value for `hasUserContext` to **true** or **false**. If false (default value), each device is counted as an active user.
+	
+	
 	**Note:** The name that you select for your application (`your_app_name_here`) displays in the {{site.data.keyword.mobileanalytics_short}} console as the application name. The application name is used as a filter to search for application logs in the dashboard. When you use the same application name across platforms (for example, Android and iOS), you can see all logs from that application under the same name, regardless of which platform the logs were sent from.
 
 5. Send recorded usage analytics to the {{site.data.keyword.mobileanalytics_short}} Service. A simple way to test your analytics is to run the following code when your application starts:
@@ -149,12 +190,21 @@ To quickly get the {{site.data.keyword.mobileanalytics_short}} service up and ru
 	```
 	{: codeblock}
 	
+	## Web
+	{: #web-send notoc}
+	
+	Use the `BMSAnalytics.send` method to send analytics data to the server. Place the `BMSAnalytics.send` method in a location that works best for your project.
+	
+	```
+	BMSAnalytics.send()
+	```
+	{: codeblock}
+
 	Read the [Instrumenting your application](/docs/services/mobileanalytics/sdk.html) topic to learn about additional {{site.data.keyword.mobileanalytics_short}} capabilities, such as [logging](/docs/services/mobileanalytics/sdk.html#app-monitoring-logger), [network requests](/docs/services/mobileanalytics/sdk.html#network-requests), and [crash analytics](/docs/services/mobileanalytics/sdk.html#report-crash-analytics).
 	
 6. Compile and run the application on your emulator or device.
 
 7. Go to the {{site.data.keyword.mobileanalytics_short}} Console to see usage analytics for your application. You can also monitor your application by <!--[creating custom charts](app-monitoring.html#custom-charts),-->[setting alerts](/docs/services/mobileanalytics/app-monitoring.html#alerts) and [monitoring app crashes](/docs/services/mobileanalytics/app-monitoring.html#monitor-app-crash).
-
 
 # Related Links
 {: #rellinks notoc}
