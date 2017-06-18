@@ -24,7 +24,7 @@ The {{site.data.keyword.mobileanalytics_full}} SDKs enable you to instrument you
 
 3. Custom events - This category includes data that you define yourself and that is specific to your app. This data represents events that occur within your app, such as page views, button taps, or in-app purchases. In addition to initializing the {{site.data.keyword.mobileanalytics_short}} SDK in your app, you must add a line of code for each custom event that you want to track. 
 
-Currently SDKs are available for Android, iOS, WatchOS, and Cordova.
+Currently SDKs are available for Android, iOS, WatchOS, Cordova and Web .
 
 ## Identifying your Service Credentials API Key value
 {: #analytics-clientkey}
@@ -77,6 +77,33 @@ Initialize your application to enable sending logs to the {{site.data.keyword.mo
 	```
 	{: codeblock}  
 
+	### Web
+	{: #web-import notoc}
+		
+	Add the Web plugin by adding the sdk provided as script to index.html.
+
+	```Html
+	<script src="/path/to/bms-clientsdk-web-analytics/bmsanalytics.js"></script>
+	```
+ 	
+ 	or using module loader requirejs 
+
+ 	```Javascript
+ 	require.config({
+    'paths': {
+        'bmsanalytics': '/path/to/bms-clientsdk-web-analytics/bmsanalytics'
+    	}
+	});
+
+	require(['bmsanalytics'], function(bmsanalytics) {
+	 BMSAnalytics.send(); 
+	}
+
+	``` 	
+	
+	{: codeblock}  
+
+
 2. Initialize the {{site.data.keyword.mobileanalytics_short}} Client SDK in your application.
 
 	### Android
@@ -120,8 +147,23 @@ Initialize your application to enable sending logs to the {{site.data.keyword.mo
 	BMSAnalytics.initialize(applicationName, apiKey, hasUserContext, deviceEvents)
 	```
 	{: codeblock}
-
+	
 	To use the {{site.data.keyword.mobileanalytics_short}} Client SDK, you must initialize the `BMSClient` with the **bluemixRegion** parameter. In the initializer, the **bluemixRegion** value specifies which {{site.data.keyword.Bluemix_notm}} deployment you are using, for example, `BMSClient.REGION_US_SOUTH` or `BMSClient.REGION_UK`.
+    <!-- , or `BMSClient.REGION_SYDNEY`. -->
+    ### Web
+
+    {: #web-initialize notoc}
+
+    Initialize the Client SDK inside your application code to record usage analytics and application sessions, using your API Key value.
+    ```javascript
+    var appName = "your_app_name_here";
+    var apiKey = "your_api_key_here";
+    BMSAnalytics.Client.initialize(BMSAnalytics.Client.REGION_US_SOUTH);
+    BMSAnalytics.initialize(appName,apiKey,hasUserContext,deviceEvents,instanceId);
+    ```
+    {: codeblock}
+	
+	To use the {{site.data.keyword.mobileanalytics_short}} Client SDK, you must initialize the `BMSAnalytics.Client` with the **bluemixRegion** parameter. In the initializer, the **bluemixRegion** value specifies which {{site.data.keyword.Bluemix_notm}} deployment you are using, for example, `BMSAnalytics.Client..REGION_UK` or `BMSAnalytics.Client..REGION_US_SOUTH`.
     <!-- , or `BMSClient.REGION_SYDNEY`. -->
     
 3. Initialize Analytics by using your application object and giving it your application’s name. 
@@ -180,7 +222,17 @@ Initialize your application to enable sending logs to the {{site.data.keyword.mo
 	Analytics.recordApplicationWillResignActive()
 	```
 	{: codeblock}	
-		
+	### Web
+	{: #android-init-analytics notoc}
+	
+	```Java
+	
+	// In this code example, Analytics is configured to record allevents.
+	BMSAnalytics.initialize(appName, apiKey, hasUserContext, Analytics.DeviceEvent.ALL);
+	```
+	{: codeblock}
+	
+	**Note:** Set the value for `hasUserContext` to **true** or **false**. If false (default value), each device is counted as an active user. The [`BMSAnalytics.setUserIdentity("username")`](sdk.html#web-tracking-users) method, which enables you to track the number of users per device who are actively using your application, will not work when `hasUserContext` is false. If true, each use of [`BMSAnalytics.setUserIdentity("username")`](sdk.html#web-tracking-users) counts as an active user. There is no default user identity when `hasUserContext` is true, and therefore must be set to populate the active user charts.	
 4. You've now initialized your application to collect analytics. Next, you can [send analytics data](sdk.html#app-monitoring-gathering-analytics) to the {{site.data.keyword.mobileanalytics_short}} service.
 
 
@@ -295,6 +347,34 @@ BMSAnalytics.log(eventObject)
 {: codeblock}
 
 **Note:** When you are developing Cordova applications, use the native API to enable application lifecycle event recording.
+ 
+### Web
+{: #web-usage-api notoc}
+	
+```
+// Disable recording of usage analytics (for example, to save disk space)
+// Recording is enabled by default
+BMSAnalytics.disable();
+	
+// Enable recording of usage analytics
+BMSAnalytics.enable();
+		
+// Send recorded usage analytics to the Mobile Analytics Service
+Analytics.send();
+```
+{: codeblock}
+	
+Sample usage analytics for logging an event:
+	
+```
+// Log a custom analytics event
+JSONObject eventJSONObject = new JSONObject();
+	
+eventJSONObject.put("customProperty" , "propertyValue");
+
+BMSAnalytics.log(eventJSONObject);
+```
+{: codeblock}
   
 ## Enabling, configuring, and using Logger
 {: #app-monitoring-logger}
@@ -437,6 +517,27 @@ BMSAnalytics.send();
 ```
 {: codeblock}
 
+#### Web
+{: #enable-logger-sample-web notoc}
+
+```
+// Enable persisting logs
+BMSAnalytics.Logger.enable(true);
+
+// Set the minimum log level to be printed and persisted   
+// log levels in descending verbose level trace,debug,log,info,warn,error,fatal,analytics  
+BMSAnalytics.Logger.setLogLevel('error');
+
+
+// Log messages with different levels
+BMSAnalytics.Logger.debug ("debug message");
+BMSAnalytics.Logger.info ("info message");
+
+// Send persisted logs to the {{site.data.keyword.mobileanalytics_short}} Service
+BMSAnalytics.Logger.send();
+BMSAnalytics.send();
+```
+{: codeblock}
 
 <!--## Enabling the {{site.data.keyword.mobileanalytics_short}} Client SDK internal logs
 {: #enable-logger-sdklogs notoc}
@@ -683,6 +784,16 @@ Analytics.userIdentity = nil
 
 ### Cordova
 {: #cordova-tracking-users notoc}
+
+Add the following code to track when the user logs in:
+
+```
+BMSAnalytics.setUserIdentity("username");
+```
+{: codeblock}
+
+### Web
+{: #web-tracking-users notoc}
 
 Add the following code to track when the user logs in:
 
