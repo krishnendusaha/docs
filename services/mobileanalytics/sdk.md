@@ -95,7 +95,7 @@ Initialize your application to enable sending logs to the {{site.data.keyword.mo
     	}
 	});
 
-	require(['bmsanalytics'], function(bmsanalytics) {
+	require(['bmsanalytics'], function(BMSAnalytics) {
 	 BMSAnalytics.send(); 
 	}
 
@@ -228,7 +228,7 @@ Initialize your application to enable sending logs to the {{site.data.keyword.mo
 	```Java
 	
 	// In this code example, Analytics is configured to record allevents.
-	BMSAnalytics.initialize(appName, apiKey, hasUserContext, Analytics.DeviceEvent.ALL);
+	BMSAnalytics.initialize(appName, apiKey, hasUserContext, BMSAnalytics.DeviceEvent.ALL);
 	```
 	{: codeblock}
 	
@@ -366,14 +366,12 @@ Analytics.send();
 	
 Sample usage analytics for logging an event:
 	
-```
+```JavaScript
 // Log a custom analytics event
-JSONObject eventJSONObject = new JSONObject();
-	
-eventJSONObject.put("customProperty" , "propertyValue");
-
-BMSAnalytics.log(eventJSONObject);
+var eventObject = {"customProperty": "propertyValue"}
+BMSAnalytics.log(eventObject)
 ```
+
 {: codeblock}
   
 ## Enabling, configuring, and using Logger
